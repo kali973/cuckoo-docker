@@ -45,15 +45,15 @@ def install_sublime_text():
 def main():
     update_packages()
 
+    # Lancement du fichier requirements.txt
+    os.system('python3 -m pip install -r requirements.txt')
+
     print("Installation de Docker...")
     install_docker()
     print("Installation de Docker Compose...")
     install_docker_compose()
-    print("Installation de Sublime Text...")
+    # print("Installation de Sublime Text...")
     # install_sublime_text()
-
-    # Lancement du fichier requirements.txt
-    os.system('python3 -m pip install -r requirements.txt')
 
     print("Installation terminée.")
 
