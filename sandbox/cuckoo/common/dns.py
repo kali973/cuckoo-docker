@@ -3,10 +3,9 @@
 # This file is part of Cuckoo Sandbox - http://www.cuckoosandbox.org
 # See the file 'docs/LICENSE' for copying permission.
 
+import select
 import socket
 import threading
-
-import select
 
 try:
     import pycares

@@ -253,7 +253,7 @@ class Pcap(object):
         """
         try:
             return isinstance(icmp_data, dpkt.icmp.ICMP) and \
-                len(icmp_data.data) > 0
+                   len(icmp_data.data) > 0
         except:
             return False
 
@@ -652,9 +652,9 @@ class Pcap(object):
                         self._tcp_dissect(connection, tcp.data)
 
                         src, sport, dst, dport = (
-                        connection["src"], connection["sport"], connection["dst"], connection["dport"])
+                            connection["src"], connection["sport"], connection["dst"], connection["dport"])
                         if not ((dst, dport, src, sport) in self.tcp_connections_seen or (
-                        src, sport, dst, dport) in self.tcp_connections_seen):
+                                src, sport, dst, dport) in self.tcp_connections_seen):
                             self.tcp_connections.append((src, sport, dst, dport, offset, ts - first_ts))
                             self.tcp_connections_seen.add((src, sport, dst, dport))
 
@@ -682,9 +682,9 @@ class Pcap(object):
                         self._udp_dissect(connection, udp.data)
 
                         src, sport, dst, dport = (
-                        connection["src"], connection["sport"], connection["dst"], connection["dport"])
+                            connection["src"], connection["sport"], connection["dst"], connection["dport"])
                         if not ((dst, dport, src, sport) in self.udp_connections_seen or (
-                        src, sport, dst, dport) in self.udp_connections_seen):
+                                src, sport, dst, dport) in self.udp_connections_seen):
                             self.udp_connections.append((src, sport, dst, dport, offset, ts - first_ts))
                             self.udp_connections_seen.add((src, sport, dst, dport))
 

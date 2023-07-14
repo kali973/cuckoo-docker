@@ -275,7 +275,7 @@ def push_on_stack_section(args):
     for idx in xrange(len(args)):
         parts.append(
             """self->arguments_stack[self->deeplevel, \"arg%d\"] = self->arg%d;\n\tself->arg%d = arg%d;""" % (
-            idx, idx, idx, idx)
+                idx, idx, idx, idx)
         )
     return "\n\t".join(parts)
 

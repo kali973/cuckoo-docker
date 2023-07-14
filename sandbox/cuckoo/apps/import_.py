@@ -48,8 +48,8 @@ def dumpcmd(dburi, dirpath):
         # against the old Cuckoo setup. If it's absolute, os.path.join() will
         # keep it absolute as-is (see also our version 1.1.1 release :-P).
         return [
-            "sqlite3", os.path.join(dirpath, engine.url.database), ".dump"
-        ], {}
+                   "sqlite3", os.path.join(dirpath, engine.url.database), ".dump"
+               ], {}
 
     if engine.name == "mysql":
         args = ["mysqldump"]

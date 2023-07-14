@@ -1117,7 +1117,7 @@ class Signature(object):
     def get_net_http_ex(self):
         """Return a list of all http data."""
         return \
-                self.get_net_generic("http_ex") + self.get_net_generic("https_ex")
+            self.get_net_generic("http_ex") + self.get_net_generic("https_ex")
 
     def get_net_udp(self):
         """Return a list of all udp data."""

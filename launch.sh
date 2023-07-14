@@ -5,7 +5,7 @@ menu_py_path="$current_directory/services/menu.py"
 
 if [[ -f "$menu_py_path" ]]; then
   cd "$current_directory/services" || exit 1
-  gnome-terminal -- /bin/bash -c "pip3 install -r requirements.txt; read -s -n 1 -p 'Appuyez sur une touche pour continuer...';" &
+#  gnome-terminal -- /bin/bash -c "pip3 install -r requirements.txt; read -s -n 1 -p 'Appuyez sur une touche pour continuer...';" &
   chmod +x menu.py
   sudo /usr/bin/python3 menu.py
 else

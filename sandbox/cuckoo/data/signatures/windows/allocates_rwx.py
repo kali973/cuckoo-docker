@@ -44,7 +44,8 @@ class AllocatesExecuteRemoteProccess(Signature):
         protection = call["flags"]["protection"]
         proc_handle = call["arguments"]["process_handle"]
         if protection in (
-        "PAGE_EXECUTE_READWRITE", "PAGE_EXECUTE", "PAGE_EXECUTE_WRITECOPY") and proc_handle not in self.process_handles:
+                "PAGE_EXECUTE_READWRITE", "PAGE_EXECUTE",
+                "PAGE_EXECUTE_WRITECOPY") and proc_handle not in self.process_handles:
             self.mark_call()
 
     def on_complete(self):

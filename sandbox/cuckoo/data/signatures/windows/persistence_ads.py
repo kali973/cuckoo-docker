@@ -40,8 +40,8 @@ class ADS(Signature):
                     # we have a different signature to deal with removal of Zone.Identifier
                     if not filepath.startswith("\\??\\http://") and not filepath.endswith(
                             ":Zone.Identifier") and not re.match(
-                            r'^[A-Z]?:\\(Users|Documents and Settings)\\[^\\]+\\Favorites\\Links\\Suggested Sites\.url:favicon$',
-                            filepath, re.IGNORECASE):
+                        r'^[A-Z]?:\\(Users|Documents and Settings)\\[^\\]+\\Favorites\\Links\\Suggested Sites\.url:favicon$',
+                        filepath, re.IGNORECASE):
                         self.mark_ioc("file", filepath)
 
         return self.has_marks()
