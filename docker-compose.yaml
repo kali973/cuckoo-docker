@@ -1,0 +1,118 @@
+version: "2"
+
+services:
+  build_image:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      args:
+        - CUCKOO_UID=1000
+    image: amf_cuckoo:0.2
+  
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - ./volumes/mongo/:/data/db
+
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: cuckoo
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - ./volumes/postgres/:/var/lib/postgresql/data/pgdata
+
+  cuckoo:
+    container_name: cuckoo
+    depends_on:
+      - build_image
+      - postgres
+      - mongo
+    image: amf_cuckoo:0.2
+    command: daemon
+    ports:
+      - "2042:2042"
+      - "18083:18083"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./volumes/tmp/:/tmp/cuckoo-tmp/
+      - ./volumes/storage/:/cuckoo/storage/
+      - ./conf/:/cuckoo/conf/
+    env_file:
+      - ./config-file.env
+    restart: unless-stopped
+
+  web:
+    container_name: cuckoo_web
+    depends_on:
+      - cuckoo
+    image: amf_cuckoo:0.2
+    ports:
+      - "9091:31337"
+    links:
+      - mongo
+      - postgres
+    command: web
+    volumes:
+      - ./volumes/tmp/:/tmp/cuckoo-tmp/
+      - ./volumes/storage/:/cuckoo/storage/
+    env_file:
+      - ./config-file.env
+    restart: unless-stopped
+
+  api:
+    container_name: cuckoo_api
+    depends_on:
+      - cuckoo
+    image: amf_cuckoo:0.2
+    ports:
+      - "9092:1337"
+    links:
+      - postgres
+    command: api
+    volumes:
+      - ./volumes/tmp/:/tmp/cuckoo-tmp/
+      - ./volumes/storage/:/cuckoo/storage/
+    env_file:
+      - ./config-file.env
+    restart: unless-stopped
+
+  # distributed:
+  #   container_name: cuckoo_dist
+  #   depends_on:
+  #     - mongo
+  #     - cuckoo
+  #   image: amf_cuckoo:0.2  
+  #   ports:
+  #     - "9093:1338"
+  #   links:
+  #     - postgres
+  #   command: dist
+  #   volumes:
+  #     - ./volumes/tmp/:/tmp/cuckoo-tmp/
+  #     - ./volumes/storage/:/cuckoo/storage/
+  #   env_file:
+  #     - ./config-file.env
+  #   restart: unless-stopped
+
+  # nginx:
+  #   build: nginx/.
+  #   depends_on:
+  #     - mongo
+  #   ports:
+  #     - "80:80"
+  #   links:
+  #     - mongo
+  #   networks:
+  #     - cuckoo
+
+volumes:
+  cuckoo-data:
+  mongo-data:
+  postgres-data:
