@@ -55,6 +55,9 @@ def main():
     # print("Installation de Sublime Text...")
     # install_sublime_text()
 
+    print("Construction et démarrage des conteneurs Docker...")
+    os.system('docker-compose up --build')
+
     print("Installation terminée.")
 
 
