@@ -2,7 +2,23 @@ import os
 import platform
 import subprocess
 import threading
-import tkinter as tk
+
+try:
+    import tkinter as tk
+except ImportError:
+    print("[!] Le module 'tkinter' n'est pas installé sur votre système. Installation en cours...")
+    try:
+        if platform.system() == 'Linux':
+            subprocess.run(['sudo', 'apt-get', 'install', '-y', 'python3-tk'])
+        elif platform.system() == 'Darwin':
+            subprocess.run(['brew', 'install', 'python-tk'])
+        elif platform.system() == 'Windows':
+            print("[!] Veuillez installer 'tkinter' à partir du site officiel Python.")
+        import tkinter as tk
+        print("[+] 'tkinter' a été installé avec succès.")
+    except subprocess.CalledProcessError:
+        print("[X] Erreur lors de l'installation de 'tkinter'. Veuillez l'installer manuellement.")
+        quit()
 
 
 def run_build(output_text, close_button):
@@ -35,22 +51,21 @@ def run_build_button(output_text, close_button):
 
 
 def create_window():
-    if os.name == 'posix':
-        window = tk.Tk()
-        window.title("Exécution de build.py")
-        window.geometry("800x600")
+    window = tk.Tk()
+    window.title("Exécution de build.py")
+    window.geometry("800x600")
 
-        output_text = tk.Text(window, width=80, height=27)
-        output_text.pack(pady=10)
+    output_text = tk.Text(window, width=80, height=27)
+    output_text.pack(pady=10)
 
-        close_button = tk.Button(window, text="Fermer", command=lambda: close_window(window))
-        close_button.pack(pady=5)
+    close_button = tk.Button(window, text="Fermer", command=lambda: close_window(window))
+    close_button.pack(pady=5)
 
-        build_button = tk.Button(window, text="Configuration",
-                                 command=lambda: run_build_button(output_text, close_button))
-        build_button.pack(pady=5)
+    build_button = tk.Button(window, text="Configuration",
+                             command=lambda: run_build_button(output_text, close_button))
+    build_button.pack(pady=5)
 
-        window.mainloop()
+    window.mainloop()
 
 
 def clear():
@@ -61,30 +76,6 @@ def clear():
 
 number = '1'
 data = ""
-
-# def check_install_xterm():
-#     try:
-#         subprocess.run(['xterm', '-version'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-#     except FileNotFoundError:
-#         print("[!] xterm n'est pas installé sur votre système.")
-#         install_xterm = input("Voulez-vous installer xterm maintenant ? (y/n): ")
-#         if install_xterm.lower() == 'y':
-#             try:
-#                 subprocess.run(['sudo', 'apt-get', 'install', '-y', 'xterm'], check=True)
-#                 print("[+] xterm a été installé avec succès.")
-#             except subprocess.CalledProcessError:
-#                 print("[X] Erreur lors de l'installation de xterm.")
-#                 sys.exit(1)
-#         else:
-#             print("[X] xterm est nécessaire pour exécuter ce programme. Veuillez l'installer et réessayer.")
-#             sys.exit(1)
-#
-# check_install_xterm()
-#
-# subprocess.run(['sudo', 'pip', 'install', 'tinydb'], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-#
-# os.environ['TERM'] = 'xterm'
-# path = os.getcwd()
 
 while number != '0':
     data += ' ----------------------------\n'
