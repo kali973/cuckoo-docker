@@ -3,9 +3,9 @@ import os
 
 def update_packages():
     # Mise à jour de pip, setuptools et virtualenv
-    os.system('python3 -m pip install --user --upgrade pip')
-    os.system('python3 -m pip install --user --upgrade setuptools')
-    os.system('python3 -m pip install --user --upgrade virtualenv')
+    os.system('python2 -m pip install --user --upgrade pip')
+    os.system('python2 -m pip install --user --upgrade setuptools')
+    os.system('python2 -m pip install --user --upgrade virtualenv')
 
 
 def install_docker():
@@ -46,7 +46,7 @@ def main():
     update_packages()
 
     # Lancement du fichier requirements.txt
-    os.system('python3 -m pip install -r requirements.txt')
+    os.system('pip install -r requirements.txt')
 
     print("Installation de Docker...")
     install_docker()

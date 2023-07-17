@@ -10,7 +10,7 @@ RUN apt-get update
 RUN apt-get install -y nocache  \
   python2.7-dev \
   python-pip \
-  bash\
+  bash \
   openssl \
   libxslt1.1 \
   libjpeg9 \
@@ -39,7 +39,7 @@ RUN apt-get install build-essential --no-install-recommends --yes nocache \
   git \
   mitmproxy \
   && pip install psycopg2
-  
+
 # Install Cuckoo Sandbox Required Dependencies
 ENV LIBRARY_PATH=/lib:/usr/lib
 COPY services/requirements.txt /tmp/requirements.txt
@@ -57,10 +57,12 @@ RUN mkdir /cuckoo \
 # Install Cuckoo
 ADD sandbox /cuckoo_build
 WORKDIR /cuckoo_build
+RUN pip install pexpect==4.0.1
+RUN sed -i 's/from pexpect.replwrap import basestring/from six import string_types as basestring/g' setup.py
 RUN python setup.py sdist && pip install -e .
 
 WORKDIR /cuckoo
-RUN cuckoo init 
+RUN cuckoo init
 
 # Cleanup
 RUN rm -rf /tmp/* \
@@ -68,22 +70,16 @@ RUN rm -rf /tmp/* \
   && apt-get purge -y lib*-dev \
   && apt autoremove --yes \
   && apt clean
-#   && apt-get remove --purge .build-deps \
-#   && apt-get remove --purge .build-deps-1
 
+# Update configs
 COPY conf /cuckoo/conf
+RUN chown -R cuckoo /cuckoo/conf
 COPY update_conf.py /update_conf.py
 COPY docker-entrypoint.sh /entrypoint.sh
 
-RUN chown -R cuckoo /cuckoo \
-  && chmod +x /entrypoint.sh
-
-#VOLUME ["/cuckoo/conf"]
+RUN chmod +x /entrypoint.sh
 
 EXPOSE 1337 31337
 USER cuckoo
 
 ENTRYPOINT ["/entrypoint.sh"]
-#CMD ["cuckoo"]
-
-# docker run --env-file ./config-file.env -it amf-cuckoo web

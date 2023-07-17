@@ -9,6 +9,7 @@ import sys
 import traceback
 
 import setuptools
+from six import string_types as basestring
 
 if sys.version[0] == "3":
     sys.exit(
