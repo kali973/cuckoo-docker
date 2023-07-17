@@ -8,7 +8,7 @@ services:
       args:
         - CUCKOO_UID=1000
     image: amf_cuckoo:0.2
-  
+
   mongo:
     image: mongo
     ports:
@@ -82,35 +82,6 @@ services:
     env_file:
       - ./config-file.env
     restart: unless-stopped
-
-  # distributed:
-  #   container_name: cuckoo_dist
-  #   depends_on:
-  #     - mongo
-  #     - cuckoo
-  #   image: amf_cuckoo:0.2  
-  #   ports:
-  #     - "9093:1338"
-  #   links:
-  #     - postgres
-  #   command: dist
-  #   volumes:
-  #     - ./volumes/tmp/:/tmp/cuckoo-tmp/
-  #     - ./volumes/storage/:/cuckoo/storage/
-  #   env_file:
-  #     - ./config-file.env
-  #   restart: unless-stopped
-
-  # nginx:
-  #   build: nginx/.
-  #   depends_on:
-  #     - mongo
-  #   ports:
-  #     - "80:80"
-  #   links:
-  #     - mongo
-  #   networks:
-  #     - cuckoo
 
 volumes:
   cuckoo-data:

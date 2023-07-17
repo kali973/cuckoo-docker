@@ -73,9 +73,11 @@ RUN rm -rf /tmp/* \
 
 # Update configs
 COPY conf /cuckoo/conf
-RUN chown -R cuckoo /cuckoo/conf
 COPY update_conf.py /update_conf.py
 COPY docker-entrypoint.sh /entrypoint.sh
+
+RUN chown -R cuckoo /cuckoo/conf
+RUN chmod +w /cuckoo/conf/virtualbox_websrv.conf
 
 RUN chmod +x /entrypoint.sh
 

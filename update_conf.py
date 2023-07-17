@@ -1,10 +1,10 @@
 import os
 import sys
 
-import ConfigParser
+import configparser
 
 # Setting auxiliary.conf
-virtualbox_cfg = ConfigParser.ConfigParser()
+virtualbox_cfg = configparser.ConfigParser()
 virtualbox_cfg.read("/cuckoo/conf/virtualbox_websrv.conf")
 with open("/cuckoo/conf/virtualbox_websrv.conf", 'w') as cfile:
     if os.environ.get('VBOX_URL'):
@@ -16,7 +16,7 @@ with open("/cuckoo/conf/virtualbox_websrv.conf", 'w') as cfile:
     virtualbox_cfg.write(cfile)
 
 # Setting reporting.conf
-reporting_cfg = ConfigParser.ConfigParser()
+reporting_cfg = configparser.ConfigParser()
 reporting_cfg.read("/cuckoo/conf/reporting.conf")
 with open("/cuckoo/conf/reporting.conf", 'w') as cfile:
     # if os.environ.get('ES_HOST'):
@@ -35,7 +35,7 @@ with open("/cuckoo/conf/reporting.conf", 'w') as cfile:
     reporting_cfg.write(cfile)
 
 # Setting cuckoo.conf
-cuckoo_cfg = ConfigParser.ConfigParser()
+cuckoo_cfg = configparser.ConfigParser()
 cuckoo_cfg.read("/cuckoo/conf/cuckoo.conf")
 with open("/cuckoo/conf/cuckoo.conf", 'w') as cfile:
     if os.environ.get('RESULTSERVER_HOST'):
@@ -52,7 +52,7 @@ with open("/cuckoo/conf/cuckoo.conf", 'w') as cfile:
     cuckoo_cfg.write(cfile)
 
 # Setting processing.conf
-processing_cfg = ConfigParser.ConfigParser()
+processing_cfg = configparser.ConfigParser()
 processing_cfg.read("/cuckoo/conf/processing.conf")
 with open("/cuckoo/conf/processing.conf", 'w') as cfile:
     if os.environ.get('ALLOWED_DNS'):

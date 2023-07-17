@@ -22,7 +22,7 @@ except ImportError:
 
 
 def run_build(output_text, close_button):
-    output_text.insert(tk.END, "[+] Exécution de build.py...\n")
+    output_text.insert(tk.END, "[+] Configuration ...\n")
     close_button.config(state=tk.DISABLED)  # Désactiver le bouton "Fermer"
 
     process = subprocess.Popen(['python3', 'build.py'], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
@@ -34,7 +34,7 @@ def run_build(output_text, close_button):
 
     return_code = process.wait()
     if return_code == 0:
-        output_text.insert(tk.END, "[+] build.py terminé.\n")
+        output_text.insert(tk.END, "[+] configuration terminé.\n")
     else:
         output_text.insert(tk.END, "[X] Erreur lors de l'exécution de build.py.\n")
 
@@ -52,16 +52,16 @@ def run_build_button(output_text, close_button):
 
 def create_window():
     window = tk.Tk()
-    window.title("Exécution de build.py")
+    window.title("Configuration")
     window.geometry("800x600")
 
     output_text = tk.Text(window, width=80, height=27)
     output_text.pack(pady=10)
 
-    close_button = tk.Button(window, text="Fermer", command=lambda: close_window(window))
+    close_button = tk.Button(window, text="  Fermer  ", command=lambda: close_window(window))
     close_button.pack(pady=5)
 
-    build_button = tk.Button(window, text="Configuration",
+    build_button = tk.Button(window, text="Exécution",
                              command=lambda: run_build_button(output_text, close_button))
     build_button.pack(pady=5)
 
