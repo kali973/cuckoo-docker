@@ -1,5 +1,12 @@
 version: "2"
 
+networks:
+  cuckoo_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
+
 services:
   build_image:
     build:
@@ -8,6 +15,8 @@ services:
       args:
         - CUCKOO_UID=1000
     image: amf_cuckoo:0.2
+    networks:
+      - cuckoo_net
 
   mongo:
     image: mongo
@@ -15,6 +24,9 @@ services:
       - 27017:27017
     volumes:
       - ./volumes/mongo/:/data/db
+    networks:
+      cuckoo_net:
+        ipv4_address: 172.21.0.5  # Fix the IP address to 172.21.0.5
 
   postgres:
     image: postgres
@@ -26,6 +38,9 @@ services:
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
       - ./volumes/postgres/:/var/lib/postgresql/data/pgdata
+    networks:
+      cuckoo_net:
+        ipv4_address: 172.21.0.6  # Fix the IP address to 172.21.0.6
 
   cuckoo:
     container_name: cuckoo
@@ -46,7 +61,12 @@ services:
       - ./conf/:/cuckoo/conf/
     env_file:
       - ./config-file.env
+    environment:
+      - POSTGRES_HOST=172.21.0.6
+      - MONGO_HOST=172.21.0.5  # Use the fixed IP address 172.21.0.5 for Mongo
     restart: unless-stopped
+    networks:
+      - cuckoo_net
 
   web:
     container_name: cuckoo_web
@@ -64,7 +84,12 @@ services:
       - ./volumes/storage/:/cuckoo/storage/
     env_file:
       - ./config-file.env
+    environment:
+      - POSTGRES_HOST=172.21.0.6
+      - MONGO_HOST=172.21.0.5  # Use the fixed IP address 172.21.0.5 for Mongo
     restart: unless-stopped
+    networks:
+      - cuckoo_net
 
   api:
     container_name: cuckoo_api
@@ -81,7 +106,12 @@ services:
       - ./volumes/storage/:/cuckoo/storage/
     env_file:
       - ./config-file.env
+    environment:
+      - POSTGRES_HOST=172.21.0.6
+      - MONGO_HOST=172.21.0.5  # Use the fixed IP address 172.21.0.5 for Mongo
     restart: unless-stopped
+    networks:
+      - cuckoo_net
 
 volumes:
   cuckoo-data:
