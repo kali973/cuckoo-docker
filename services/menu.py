@@ -76,7 +76,7 @@ def clear():
 
 number = '1'
 data = ""
-
+clear()
 while number != '0':
     data += ' ----------------------------\n'
     if os.name == "nt":
@@ -87,6 +87,7 @@ while number != '0':
         data += ' Hi ' + platform.uname()[1] + '\n'
     data += ' ----------------------------\n'
     data += ' Select option:\n'
+    data += '\n'
     data += ' [1] Configuration environnement Cuckoo Docker\n'
     data += ' [0] Exit\n'
     print(data)
