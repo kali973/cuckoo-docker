@@ -71,7 +71,7 @@ with open("/cuckoo/conf/processing.conf", 'w') as cfile:
     processing_cfg.write(cfile)
 
 # Setting auxiliary.conf
-# auxiliary_cfg = ConfigParser.ConfigParser()
+# auxiliary_cfg = configparser.ConfigParser()
 # auxiliary_cfg.read("/cuckoo/conf/auxiliary.conf")
 # with open("/cuckoo/conf/auxiliary.conf", 'w') as cfile:
 #     if os.environ.get('ENABLE_MITM'):

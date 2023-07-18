@@ -330,7 +330,7 @@ IDLEfork ChangeLog
 
 2001-07-13 11:30  kbk
 
-	* ConfigParser.py: py-cvs-rel2_1 merge - Remove, lives in /Lib
+	* configparser.py: py-cvs-rel2_1 merge - Remove, lives in /Lib
 
 2001-07-13 10:10  kbk
 
@@ -460,7 +460,7 @@ IDLEfork ChangeLog
 
 	* AutoExpand.py, AutoIndent.py, Bindings.py, CallTipWindow.py,
 	CallTips.py, ChangeLog, ClassBrowser.py, ColorDelegator.py,
-	ConfigParser.py, Debugger.py, Delegator.py, EditorWindow.py,
+	configparser.py, Debugger.py, Delegator.py, EditorWindow.py,
 	ExecBinding.py, FileList.py, FormatParagraph.py, FrameViewer.py,
 	GrepDialog.py, IDLEFORK.html, IOBinding.py, IdleConf.py,
 	IdleHistory.py, MultiScrolledLists.py, MultiStatusBar.py, NEWS.txt,
@@ -528,7 +528,7 @@ IDLEfork ChangeLog
 
 	* AutoExpand.py, AutoIndent.py, Bindings.py, CallTipWindow.py,
 	CallTips.py, __init__.py, ChangeLog, ClassBrowser.py,
-	ColorDelegator.py, ConfigParser.py, Debugger.py, Delegator.py,
+	ColorDelegator.py, configparser.py, Debugger.py, Delegator.py,
 	FileList.py, FormatParagraph.py, FrameViewer.py, GrepDialog.py,
 	IOBinding.py, IdleConf.py, IdleHistory.py, MultiScrolledLists.py,
 	MultiStatusBar.py, NEWS.txt, ObjectBrowser.py, OldStackViewer.py,
@@ -550,7 +550,7 @@ IDLEfork ChangeLog
 
 	* AutoExpand.py, AutoIndent.py, Bindings.py, CallTipWindow.py,
 	CallTips.py, __init__.py, ChangeLog, ClassBrowser.py,
-	ColorDelegator.py, ConfigParser.py, Debugger.py, Delegator.py,
+	ColorDelegator.py, configparser.py, Debugger.py, Delegator.py,
 	FileList.py, FormatParagraph.py, FrameViewer.py, GrepDialog.py,
 	IOBinding.py, IdleConf.py, IdleHistory.py, MultiScrolledLists.py,
 	MultiStatusBar.py, NEWS.txt, ObjectBrowser.py, OldStackViewer.py,

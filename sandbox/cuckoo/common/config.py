@@ -7,7 +7,7 @@ import logging
 import os
 import re
 
-import ConfigParser
+import configparser
 import click
 from cuckoo.common.exceptions import CuckooConfigurationError
 from cuckoo.common.objects import Dictionary
@@ -976,7 +976,7 @@ class Config(object):
 
         env["CUCKOO_CWD"] = cwd()
         env["CUCKOO_APP"] = os.environ.get("CUCKOO_APP", "")
-        config = ConfigParser.ConfigParser(env)
+        config = configparser.ConfigParser(env)
 
         self.env_keys = []
         for key in env.keys():
@@ -986,7 +986,7 @@ class Config(object):
 
         try:
             config.read(cfg or cwd("conf", "%s.conf" % file_name))
-        except ConfigParser.ParsingError as e:
+        except configparser.ParsingError as e:
             raise CuckooConfigurationError(
                 "There was an error reading in the $CWD/conf/%s.conf "
                 "configuration file. Most likely there are leading "
@@ -1009,7 +1009,7 @@ class Config(object):
 
             try:
                 items = config.items(section)
-            except ConfigParser.InterpolationMissingOptionError as e:
+            except configparser.InterpolationMissingOptionError as e:
                 log.error("Missing environment variable(s): %s", e)
                 raise CuckooConfigurationError(
                     "Missing environment variable: %s" % e

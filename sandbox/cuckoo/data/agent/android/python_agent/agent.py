@@ -12,7 +12,7 @@ import sys
 import time
 from zipfile import ZipFile
 
-import ConfigParser
+import configparser
 from SimpleXMLRPCServer import SimpleXMLRPCServer
 from StringIO import StringIO
 
@@ -115,7 +115,7 @@ class Agent:
         if type(options) != dict:
             return False
 
-        config = ConfigParser.RawConfigParser()
+        config = configparser.Rawconfigparser()
         config.add_section("analysis")
 
         try:
