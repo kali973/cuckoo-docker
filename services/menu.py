@@ -87,12 +87,12 @@ while number != '0':
         data += ' Hi ' + platform.uname()[1] + '\n'
     data += ' ----------------------------\n'
     data += ' Select option:\n'
-    data += ' [1] Configuration environment\n'
+    data += ' [1] Configuration environnement Cuckoo Docker\n'
     data += ' [0] Exit\n'
     print(data)
     number = input(" Number~# ")
     if number == '1':
-        print("\n Configuration de l'environnement...\n")
+        print("\n Configuration environnement Cuckoo Docker...\n")
         create_window()
         print("\033[H\033[J", end="")
         print("\033[H\033[J", end="")

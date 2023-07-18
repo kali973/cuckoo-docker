@@ -82,6 +82,6 @@ RUN chmod +w /cuckoo/conf/virtualbox_websrv.conf
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 1337 31337
-USER cuckoo
+USER root
 
 ENTRYPOINT ["/entrypoint.sh"]
