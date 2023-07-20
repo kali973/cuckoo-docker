@@ -2,6 +2,8 @@ import os
 import platform
 import subprocess
 import threading
+import tkinter as tk
+from tkinter.scrolledtext import ScrolledText  # Importer le widget avec ascenseur
 
 try:
     import tkinter as tk
@@ -55,15 +57,18 @@ def create_window():
     window.title("Configuration")
     window.geometry("800x600")
 
-    output_text = tk.Text(window, width=80, height=27)
+    # Créer un widget ScrolledText avec ascenseur
+    output_text = ScrolledText(window, width=80, height=27)
     output_text.pack(pady=10)
 
-    close_button = tk.Button(window, text="  Fermer  ", command=lambda: close_window(window))
-    close_button.pack(pady=5)
+    button_frame = tk.Frame(window)
+    button_frame.pack(pady=5)
 
-    build_button = tk.Button(window, text="Exécution",
-                             command=lambda: run_build_button(output_text, close_button))
-    build_button.pack(pady=5)
+    build_button = tk.Button(button_frame, text="Exécution", command=lambda: run_build_button(output_text, close_button))
+    build_button.pack(side=tk.LEFT, padx=5)
+
+    close_button = tk.Button(button_frame, text="  Fermer  ", command=lambda: close_window(window))
+    close_button.pack(side=tk.RIGHT, padx=5)
 
     window.mainloop()
 

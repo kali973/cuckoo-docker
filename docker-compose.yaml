@@ -1,13 +1,45 @@
 version: "2"
 
-networks:
-  cuckoo_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 172.21.0.0/16
-
 services:
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
+#    container_name: elasticsearch_container
+#    environment:
+#      - http.host=0.0.0.0
+#      - transport.host=0.0.0.0
+#      - xpack.security.enabled=false
+#      - cluster.name=hive
+#      - script.inline=true
+#      - thread_pool.index.queue_size=100000
+#      - thread_pool.search.queue_size=100000
+#      - thread_pool.bulk.queue_size=100000
+#    ulimits:
+#      memlock:
+#        soft: -1
+#        hard: -1
+#      nofile:
+#        soft: 65536
+#        hard: 65536
+#    networks:
+#      - cuckoo_net
+#
+#  cortex:
+#    image: thehiveproject/cortex:latest
+#    ports:
+#      - "9001:9001"
+#    networks:
+#      - cuckoo_net
+#
+#  thehive:
+#    image: thehiveproject/thehive:latest
+#    depends_on:
+#      - elasticsearch
+#      - cortex
+#    ports:
+#      - "9000:9000"
+#    networks:
+#      - cuckoo_net
+
   build_image:
     build:
       dockerfile: Dockerfile
@@ -19,7 +51,7 @@ services:
       - cuckoo_net
 
   mongo:
-    image: mongo
+    image: mongo:latest
     ports:
       - 27017:27017
     volumes:
@@ -112,6 +144,13 @@ services:
     restart: unless-stopped
     networks:
       - cuckoo_net
+
+networks:
+  cuckoo_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.21.0.0/16
 
 volumes:
   cuckoo-data:
